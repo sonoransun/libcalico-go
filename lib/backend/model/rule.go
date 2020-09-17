@@ -162,6 +162,14 @@ func (r Rule) String() string {
 		parts = append(parts, "!code", strconv.Itoa(*r.NotICMPCode))
 	}
 
+	// Owner match and not match attributes
+	if r.Owner != nil {
+		parts = append(parts, fmt.Sprintf("%d", r.Owner))
+	}
+	if r.NotOwner != nil {
+		parts = append(parts, fmt.Sprintf("!%d", r.NotOwner))
+	}
+
 	{
 		// Source attributes.  New block ensures that fromParts goes out-of-scope before
 		// we calculate toParts.  This prevents copy/paste errors.
