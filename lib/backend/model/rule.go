@@ -50,6 +50,7 @@ type Rule struct {
 	DstNet      *net.IPNet         `json:"dst_net,omitempty" validate:"omitempty"`
 	DstNets     []*net.IPNet       `json:"dst_nets,omitempty" validate:"omitempty"`
 	DstPorts    []numorstring.Port `json:"dst_ports,omitempty" validate:"omitempty,dive"`
+	Owner       *int `json:"owner,omitempty" validate:"omitempty,gte=0,lte=65535"`
 
 	NotSrcTag      string             `json:"!src_tag,omitempty" validate:"omitempty,tag"`
 	NotSrcNet      *net.IPNet         `json:"!src_net,omitempty" validate:"omitempty"`
@@ -61,6 +62,7 @@ type Rule struct {
 	NotDstNet      *net.IPNet         `json:"!dst_net,omitempty" validate:"omitempty"`
 	NotDstNets     []*net.IPNet       `json:"!dst_nets,omitempty" validate:"omitempty"`
 	NotDstPorts    []numorstring.Port `json:"!dst_ports,omitempty" validate:"omitempty,dive"`
+	NotOwner       *int `json:"!owner,omitempty" validate:"omitempty,gte=0,lte=65535"`
 
 	// These fields allow us to pass through the raw match criteria from the V3 datamodel unmodified.
 	// The selectors above are formed in the update processor layer by combining the original
