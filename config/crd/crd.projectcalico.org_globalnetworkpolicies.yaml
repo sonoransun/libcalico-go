@@ -265,6 +265,10 @@ spec:
                         \"UDPLite\" or an integer in the range 1-255."
                       pattern: ^.*
                       x-kubernetes-int-or-string: true
+                    owner:
+                      description: "Owner is an optional field that contains an integer
+                        user ID whose process owns the traffic to be matched."
+                      type: integer
                     source:
                       description: Source contains the match criteria that apply to
                         source entity.
@@ -596,6 +600,10 @@ spec:
                         \"UDPLite\" or an integer in the range 1-255."
                       pattern: ^.*
                       x-kubernetes-int-or-string: true
+                    owner:
+                      description: "Owner is an optional field that contains an integer
+                        user ID whose process owns the traffic to be matched."
+                      type: integer
                     source:
                       description: Source contains the match criteria that apply to
                         source entity.
