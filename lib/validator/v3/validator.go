@@ -93,6 +93,7 @@ var (
 	poolUnstictCIDR       = "IP pool CIDR is not strictly masked"
 	overlapsV4LinkLocal   = "IP pool range overlaps with IPv4 Link Local range 169.254.0.0/16"
 	overlapsV6LinkLocal   = "IP pool range overlaps with IPv6 Link Local range fe80::/10"
+	ownerRuleMsg          = "Owner match requires an integer UID"
 	protocolPortsMsg      = "rules that specify ports must set protocol to TCP or UDP or SCTP"
 	protocolIcmpMsg       = "rules that specify ICMP fields must set protocol to ICMP"
 	protocolAndHTTPMsg    = "rules that specify HTTP fields must set protocol to TCP or empty"
@@ -956,6 +957,14 @@ func validateRule(structLevel validator.StructLevel) {
 		if len(rule.Destination.NotPorts) > 0 {
 			structLevel.ReportError(reflect.ValueOf(rule.Destination.NotPorts),
 				"Destination.NotPorts", "", reason(protocolPortsMsg), "")
+		}
+	}
+
+	// If an owner match is given, ensure that it is a positive numeric value.
+	if rule.Owner {
+		if rule.Owner < 0 {
+			structLevel.ReportError(reflect.ValueOf(rule.Owner),
+				"Owner", "", reason(ownerRuleMsg), "")
 		}
 	}
 
