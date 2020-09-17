@@ -446,6 +446,7 @@ Each rule sub-object has the following JSON-encoded structure:
   "dst_net": "<CIDR>",
   "dst_ports": [1234, "2048:4000"],
   "icmp_type": <int>, "icmp_code": <int>,  # Treated together, see below.
+  "owner": <int>,  # Owner must be integer UID; name resolution not supported.
 
   # Negated matches:
   "!protocol": ...,
@@ -457,6 +458,7 @@ Each rule sub-object has the following JSON-encoded structure:
   "!dst_net": ...,
   "!dst_ports": ...,
   "!icmp_type": ..., "!icmp_code": ...,  # Treated together, see below.
+  "!owner": ...,
 
   # If present, "log_prefix" causes the matched packet to be logged
   # with the given prefix.
@@ -565,6 +567,10 @@ which Calico uses to enforce the rule.
 > and code.
 >
     
+`owner`: if present, restricts the rule to traffic originating from
+processes with given integer ID. Note that name resolution of human
+readable names to IDs is not supported.
+
 `log_prefix`: if present, in addition to doing the configured action, 
 Calico will log the packet with this prefix. The current implementation 
 uses iptables LOG action, which results in a log to syslog.
